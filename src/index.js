@@ -9,7 +9,7 @@ function mutiplyFindIndex(parseData, arrayValue) {
 
 function validateWorkSheet(workSheet) {
     try {
-        return workSheet[0][0].toUpperCase() == "BAN CƠ YẾU CHÍNH PHỦ" && workSheet[1][0].toUpperCase() == "HỌC VIỆN KỸ THUẬT MẬT MÃ" && !!workSheet[5][5];
+        return workSheet[0][0].toUpperCase() == "BAN CƠ YẾU CHÍNH PHỦ" && workSheet[1][0].toUpperCase() == "HỌC VIỆN KỸ THUẬT MẬT MÃ" && !!workSheet[5][5] && !!workSheet[5][2];
     }
     catch (e) {
         return false;
@@ -21,10 +21,15 @@ function getStudentCode(workSheet) {
 
     return workSheet[5][5];
 }
+function getStudentName(workSheet) {
+
+    return workSheet[5][2];
+}
 module.exports = function(excelBuffer) {
     let workSheetsFromFile = xlsx.parse(excelBuffer)[0].data
     if (!validateWorkSheet(workSheetsFromFile)) return Error("Không phải thời khóa biểu học viện mật mã");
     let studentCode = getStudentCode(workSheetsFromFile);
+    let studentName = getStudentName(workSheetsFromFile);
     let parseData = workSheetsFromFile.filter((e, i) => e[0] && (!!parseInt(e[0]) || e[0].toLowerCase() == "thứ"));
 
     let [dateIndex, subjectCodeIndex, subjectNameIndex, classNameIndex, teacherIndex, lessonIndex, roomIndex, timeIndex] = mutiplyFindIndex(parseData, ["thứ", "mã học phần", "tên học phần", "lớp học phần", "cbgd", "tiết học", "phòng học", "thời gian học"]);
@@ -58,6 +63,6 @@ module.exports = function(excelBuffer) {
     // scheduleData.push([null, null, null, null, null, null, "Thanks you for use."])
     // let buffer = xlsx.build([{ name: "sheet1", data: scheduleData }], { '!merges': [{ s: { c: 0, r: 0 }, e: { c: 6, r: 0 } }] });
     // fs.writeFileS'.ync(/thoi-khoa-bieu-theo-ngay.xlsx', buffer);
-    return scheduleData;
+    return { studentCode, studentName, scheduleData };
 
 }
