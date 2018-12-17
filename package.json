@@ -1,5 +1,5 @@
 {
-  "name": "parse-schedule",
+  "name": "parse-schedule-kma",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,5 +14,6 @@
   },
   "devDependencies": {
     "dumper.js": "^1.3.0"
-  }
+  },
+  "repository": "github:coder-kma/parse-schedule-kma"
 }
