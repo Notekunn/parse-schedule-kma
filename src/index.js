@@ -21,6 +21,7 @@ function getStudentCode(workSheet) {
 
     return workSheet[5][5];
 }
+
 function getStudentName(workSheet) {
 
     return workSheet[5][2];
@@ -35,7 +36,7 @@ module.exports = function(excelBuffer) {
     let [dateIndex, subjectCodeIndex, subjectNameIndex, classNameIndex, teacherIndex, lessonIndex, roomIndex, timeIndex] = mutiplyFindIndex(parseData, ["thứ", "mã học phần", "tên học phần", "lớp học phần", "cbgd", "tiết học", "phòng học", "thời gian học"]);
     let Schedule = new Array();
     parseData.filter((e, i) => i > 0).forEach(e => {
-        let [timeStart, timeEnd] = e[timeIndex].split("-")
+        let [timeStart, timeEnd] = e[timeIndex].split("-");
         timer.findAllDate(e[dateIndex], timeStart, timeEnd).forEach(element => {
             Schedule.push({
                 day: timer.timeStampToDateString(element),

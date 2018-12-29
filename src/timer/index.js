@@ -17,14 +17,15 @@ module.exports = {
         let allDate = new Array();
         while (timeLine <= timeStampEnd) {
             if (this.findDayOfWeek(timeLine) == dayOfWeek) {
-                timeLine += 7 * aDayToTimeStamp;
                 allDate.push(timeLine)
+                timeLine += 7 * aDayToTimeStamp;
+
             }
             else {
                 timeLine += 1 * aDayToTimeStamp;
             }
         }
-        
+
         return allDate;
     }
 }
